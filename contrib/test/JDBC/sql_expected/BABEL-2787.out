@@ -1,0 +1,136 @@
+CREATE TABLE employeeData( ID INT IDENTITY (1,1) PRIMARY KEY,Emp_First_name VARCHAR (50));
+GO
+
+CREATE TRIGGER updEmployeeData  ON employeeData  INSTEAD OF INSERT AS  
+BEGIN  
+   select count(*) from inserted;
+END
+GO
+
+insert into employeeData values ('a'),('b'),('c');
+GO
+~~START~~
+int
+3
+~~END~~
+
+
+select count(*) from employeeData;
+GO
+~~START~~
+int
+0
+~~END~~
+
+
+drop trigger updEmployeeData;
+GO
+
+insert into employeeData values ('a'),('b'),('c'),('d');
+GO
+~~ROW COUNT: 4~~
+
+
+CREATE TRIGGER updEmployeeData  ON employeeData  INSTEAD OF DELETE AS    
+BEGIN
+   select count(*) from deleted;
+END
+GO
+
+delete from employeeData where id = 1;
+GO
+~~START~~
+int
+0
+~~END~~
+
+
+delete from employeeData;
+GO
+~~START~~
+int
+4
+~~END~~
+
+
+select * from employeeData;
+GO
+~~START~~
+int#!#varchar
+4#!#a
+5#!#b
+6#!#c
+7#!#d
+~~END~~
+
+
+drop trigger updEmployeeData
+GO
+
+delete from employeeData;
+GO
+~~ROW COUNT: 4~~
+
+
+CREATE TRIGGER updEmployeeData  ON employeeData  INSTEAD OF UPDATE AS
+BEGIN
+   select * from inserted;
+   select * from deleted;
+END
+GO
+
+insert into employeeData values ('a'),('b'),('c'),('d');
+GO
+~~ROW COUNT: 4~~
+
+
+update employeeData set Emp_First_name = 'ppp' where Emp_First_name = 'a'
+GO
+~~START~~
+int#!#varchar
+8#!#ppp
+~~END~~
+
+~~START~~
+int#!#varchar
+8#!#a
+~~END~~
+
+
+update employeeData set Emp_First_name = 'kkk' where Emp_First_name = 'a'
+GO
+~~START~~
+int#!#varchar
+8#!#kkk
+~~END~~
+
+~~START~~
+int#!#varchar
+8#!#a
+~~END~~
+
+
+update employeeData set Emp_First_name = 'ddd'
+GO
+~~START~~
+int#!#varchar
+8#!#ddd
+9#!#ddd
+10#!#ddd
+11#!#ddd
+~~END~~
+
+~~START~~
+int#!#varchar
+8#!#a
+9#!#b
+10#!#c
+11#!#d
+~~END~~
+
+
+drop trigger updEmployeeData
+GO
+
+drop table employeeData
+GO
