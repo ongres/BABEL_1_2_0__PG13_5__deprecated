@@ -32,7 +32,7 @@ sudo apt-get update && sudo apt install -y --no-install-recommends \
   libicu-dev gawk \
   curl openjdk-8-jre openssl \
   g++ libssl-dev python-dev libpq-dev \
-  pkg-config unzip libutfcpp-dev \
+  pkg-config libutfcpp-dev \
   gnupg unixodbc-dev 
 
 # Other dependencies not strictly related to Babelfish
@@ -86,7 +86,7 @@ unzip -d ${ANTLR_RUNTIME} antlr4-cpp-runtime-${ANTLR4_VERSION}-source.zip
 cd ${ANTLR_RUNTIME}
 mkdir build && cd build 
 cmake .. -D ANTLR_JAR_LOCATION=/usr/local/lib/antlr-${ANTLR4_VERSION}-complete.jar -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_DEMO=True
-make -j 4
+make -j
 sudo make install
 ```
 
@@ -108,7 +108,7 @@ cd ${PG_SRC}
   --with-libxslt \
   --with-icu
           
-make clean && make DESTDIR=/opt/babelfish/1.2/ -j 4 2>error.txt
+make clean && make DESTDIR=/opt/babelfish/1.2/ -j 2>error.txt
           
 sudo make install
 ```
@@ -143,7 +143,7 @@ This step will be deprecated in future versions.
 Now, it is time to compile the contrib modules and build Babelfish. Use the command:
 
 ```sh
-cd $PG_SRC/contrib/ && make -j 2 && sudo make install 
+cd $PG_SRC/contrib/ && make -j && sudo make install 
 ```
 
 ## Setting up the PostgreSQL modified instance
