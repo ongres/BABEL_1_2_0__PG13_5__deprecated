@@ -1,4 +1,3 @@
-
 # Compiling Babelfish from distribution tarballs
 
 This document will walk you through the steps required to create a working Babelfish installation on an Ubuntu 20.04 Linux host. Please note that the steps may vary on other operating systems, but the overall process is roughly the same.
@@ -46,7 +45,7 @@ To build Babelfish, you will need access to a user with root privileges, so you 
 
 ### Download the distribution tarballs
 
-Assuming that you're currently located inside the extracted tarball folder, set the `PG_SRC` as follows:
+Navigate into the extracted tarball folder and set `PG_SRC` as follows:
 
 ```sh
 export PG_SRC=$(realpath $PWD)
@@ -113,7 +112,7 @@ make clean && make DESTDIR=/opt/babelfish/1.2/ -j 2>error.txt
 sudo make install
 ```
 
-> WARNING: Using the --with-extra-version in the configure phase can break the sys.get_host_os() output, it is not recommended to be set.
+> WARNING: Using the --with-extra-version option during the configuration phase can break the sys.get_host_os() output; we do not recommend including it.
 
 Export the `PG_CONFIG` variable:
 
